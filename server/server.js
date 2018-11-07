@@ -12,6 +12,7 @@ const port = process.env.PORT
 var app = express()
 app.use(bodyParser.json())
 
+// TODO
 app.post('/todos', (req, res) => {
 	let todo = new Todo({
 		text: req.body.text
@@ -82,6 +83,22 @@ app.patch('/todos/:id', (req, res) => {
 			if(!todo)
 			return res.status(404).send()
 				res.send({todo})
+		}).catch((err) => {
+			res.status(400).send(err)
+		})
+})
+
+// USER
+app.post('/users', (req, res) => {
+	let body = _.pick(req.body, ['email', 'password'])
+	let user = new User(body)
+
+	user.save().then((user) => {
+		console.log(user)
+			return user.generateAuthToken()
+		}).then((token) => {
+			console.log(token)
+			res.header('x-auth', token).send(user)
 		}).catch((err) => {
 			res.status(400).send(err)
 		})
