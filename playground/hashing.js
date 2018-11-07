@@ -1,5 +1,6 @@
 const {SHA256} = require('crypto-js')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 // playground using crypto-js
 // let message = "hello there lalala"
@@ -25,10 +26,26 @@ const jwt = require('jsonwebtoken')
 // 	console.log("data change")
 // }
 
-let data = {
-	id: 5
-}
-let token = jwt.sign(data, 'kegoanair123')
-console.log(token)
-let decode = jwt.verify(token, 'kegoanair123')
-console.log(decode)
+// let data = {
+// 	id: 5
+// }
+// let token = jwt.sign(data, 'kegoanair123')
+// console.log(token)
+// let decode = jwt.verify(token, 'kegoanair123')
+// console.log(decode)
+
+// bcrypt
+let password = 'kegoanair123'
+
+bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.hash(password, salt, (err, hash) => {
+  	console.log("hash")
+    console.log(hash);
+  });
+});
+
+let hashedPassword = '$2a$10$3lZoE1sr6AazRU0JQbyYc.1ous2glatOCLXJHmGXdAX9PuglYh5mu'
+bcrypt.compare('kegoanair123', hashedPassword, (err, res) => {
+	console.log("res")
+	console.log("result: ",res) // return true or false
+})

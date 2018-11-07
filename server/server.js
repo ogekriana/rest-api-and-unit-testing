@@ -95,14 +95,24 @@ app.post('/users', (req, res) => {
 	let user = new User(body)
 
 	user.save().then((user) => {
-		console.log(user)
 			return user.generateAuthToken()
 		}).then((token) => {
-			console.log(token)
 			res.header('x-auth', token).send(user)
 		}).catch((err) => {
 			res.status(400).send(err)
 		})
+})
+
+app.post('/users/login', (req, res) => {
+	let body = _.pick(req.body, ['email', 'password'])
+
+	User.findByCredentials(body.email, body.password).then((user) => {
+		return user.generateAuthToken().then((token) => {
+			res.header('x-auth', token).send(user)
+		}).catch((err) => {
+			res.status(400).send(err)
+		})
+	})
 })
 
 // app.get('/users/me', (req, res) => {
