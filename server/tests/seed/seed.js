@@ -19,20 +19,26 @@ const users = [
 	{ 
 		_id: userTwoId,
 		email: "ogek.mahlia@gmail.com",
-		password: "ogekrianamd12345"
+		password: "ogekrianamd12345",
+		tokens: [{
+			access: 'auth',
+			token: jwt.sign({_id: userOneId, access: 'auth'}, 'kegoanair123')
+		}]
 	}
 ]
 
 const todos = [
 	{
 		_id: new ObjectID(),
-		text: 'insert the first todo LALA'
+		text: 'insert the first todo LALA',
+		_creator: userOneId
 	},
 	{ 
 		_id: new ObjectID(),
 		text: 'insert the second todo',
 		completed: true,
-		comletedAt: 1541484089104
+		comletedAt: 1541484089104,
+		_creator: userTwoId
 	}
 ]
 
