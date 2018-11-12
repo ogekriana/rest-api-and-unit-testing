@@ -12,7 +12,11 @@ let authentication = (req, res, next) => {
 		req.token = token
 		next()
 	}).catch((e) => {
-		res.status(401).send()
+		res.status(401).send({
+			error: true,
+			status: 401,
+			message: "Access Unauthorized!"
+		})
 	})
 }
 

@@ -38,8 +38,10 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function() {
 	var user = this
 	var userObject = user.toObject()
+	let seletedObject = _.pick(userObject, ['_id', 'email', ''])
+	seletedObject.token = userObject.tokens[0].token
 
-	return _.pick(userObject, ['_id', 'email'])
+	return seletedObject
 }
 
 UserSchema.methods.generateAuthToken = function() {
