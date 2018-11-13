@@ -13,7 +13,9 @@ const users = [
 		password: "ogekrianamd123",
 		tokens: [{
 			access: 'auth',
-			token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET)
+			token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET, {
+		      expiresIn: 86400 // expires in 24 hours
+		    })
 		}]
 	},
 	{ 
@@ -22,7 +24,9 @@ const users = [
 		password: "ogekrianamd12345",
 		tokens: [{
 			access: 'auth',
-			token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET)
+			token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET, {
+		      expiresIn: 86400 // expires in 24 hours
+		    })
 		}]
 	}
 ]
