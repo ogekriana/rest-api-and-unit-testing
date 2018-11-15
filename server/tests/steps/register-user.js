@@ -16,7 +16,7 @@ Given('a request data password {string}', function (password) {
 	this.password = password
 })
 
-When('I make a POST request to {string}', function (url) {
+When('I make a POST request to {string}', function (url, callbacks) {
 	let email = this.email
 	let password = this.password
 	request.post('http://localhost:3000/users', {
@@ -24,16 +24,11 @@ When('I make a POST request to {string}', function (url) {
 	}, (err, res, body) => {
 		if(err){
 			console.log("ini error")
+			callbacks(err)
 		}else{
 			this.newUser = res.body
-			console.log(this.newUser)
 			console.log("ini gak error")
-
-			let newUser = {
-				email: 'paimin@gmail.com',
-			}
-			let result = expect(this.newUser).toInclude(newUser)
-			console.log(result)
+			callbacks()
 		}
 	})
 })
@@ -42,6 +37,6 @@ Then('I should get new user created', function () {
 	let newUser = {
 		email: 'paimin@gmail.com',
 	}
-	console.log(newUser)
-	return expect(newUser).toInclude(newUser)
+	console.log(this.newUser)
+	expect(this.newUser).toInclude(newUser)
 })
