@@ -8,26 +8,52 @@ const { User } = require('./../../models/user')
 
 var email, password, newUser
 
-Given('a request data email address {string}', function (email) {
-	this.email = email
-})
+// Given('a request data email address {string}', function (email) {
+// 	this.email = email
+// })
 
-Given('a request data password {string}', function (password) {
-	this.password = password
-})
+// Given('a request data password {string}', function (password) {
+// 	this.password = password
+// })
 
-When('I make a POST request to {string}', function (url, callbacks) {
-	let email = this.email
-	let password = this.password
+// When('I make a POST request to {string}', function (url, callbacks) {
+// 	let email = this.email
+// 	let password = this.password
+// 	request.post(`http://localhost:3000${url}`, {
+// 		json: {email: email, password: password}
+// 	}, (err, res, body) => {
+// 		if(err){
+// 			console.log("ini error")
+// 			callbacks(err)
+// 		}else{
+// 			this.newUser = res.body
+// 			console.log("ini gak error")
+// 			callbacks()
+// 		}
+// 	})
+// })
+
+// Then('I should get new user created', function () {
+// 	let newUser = {
+// 		email: 'paimin@gmail.com',
+// 	}
+// 	expect(this.newUser).toInclude(newUser)
+// })
+
+When('I create a new user with detail:', function (table, callbacks) {
+	let data = table.rowsHash()
+	console.log(data)
+
 	request.post('http://localhost:3000/users', {
-		json: {email: email, password: password}
+		json: data
 	}, (err, res, body) => {
+		console.log("masuk signup sini")
 		if(err){
-			console.log("ini error")
+			console.log("ini error signup")
 			callbacks(err)
 		}else{
 			this.newUser = res.body
-			console.log("ini gak error")
+			console.log("ini gak error sign up")
 			callbacks()
 		}
 	})
@@ -35,8 +61,7 @@ When('I make a POST request to {string}', function (url, callbacks) {
 
 Then('I should get new user created', function () {
 	let newUser = {
-		email: 'paimin@gmail.com',
+		email: 'riana@mitrais.com',
 	}
-	console.log(this.newUser)
 	expect(this.newUser).toInclude(newUser)
 })
