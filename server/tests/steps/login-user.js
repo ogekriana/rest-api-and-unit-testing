@@ -1,6 +1,5 @@
 const { Given, When, Then } = require('cucumber')
-const expect = require('expect')
-const assert = require('assert')
+const { assert, expect } = require('chai')
 const request = require('request')
 
 const { app } = require('./../../server')
@@ -21,7 +20,7 @@ When('I login to {string}', function (url, callbacks) {
 	let password = this.password
 	request.post(`http://localhost:3000${url}`, {
 		json: {email: email, password: password}
-	}, (err, res, body) => {
+	}, function(err, res, body) {
 		if(err){
 			callbacks(err)
 		}else{
@@ -32,6 +31,5 @@ When('I login to {string}', function (url, callbacks) {
 })
 
 Then('I should be able to login', function () {
-	
 	// expect(this.loginUser).toInclude(newUser)
 })
