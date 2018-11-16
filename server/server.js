@@ -3,8 +3,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const { mongoose } = require('./db/mongoose')
-const userRouter = require('./routes/users')
-const todoRouter = require('./routes/todo')
+// const userRouter = require('./routes/users')
+// const todoRouter = require('./routes/todo')
+
+const routes = require('./routes/index')
 
 const port = process.env.PORT
 var app = express()
@@ -23,8 +25,8 @@ app.use(function (req, res, next) {
     }
 });
 
-app.use('/users', userRouter)
-app.use('/todos', todoRouter)
+// app.use('/users', userRouter)
+// app.use('/todos', todoRouter)
 
 
 app.listen(port, () => {
