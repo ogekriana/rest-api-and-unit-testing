@@ -19,18 +19,13 @@ Given('a request data password {string}', function (password) {
 When('I login to {string}', function (url, callbacks) {
 	let email = this.email
 	let password = this.password
-	console.log("login sini")
 	request.post(`http://localhost:3000${url}`, {
 		json: {email: email, password: password}
 	}, (err, res, body) => {
-		console.log("sini")
 		if(err){
-			console.log("ini error")
 			callbacks(err)
 		}else{
 			this.loginUser = res.body
-			console.log("ini gak error")
-			console.log(this.loginUser)
 			callbacks()
 		}
 	})

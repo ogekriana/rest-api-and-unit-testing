@@ -1,5 +1,4 @@
 require('./config/config')
-const _ = require('lodash')
 const express = require('express')
 const bodyParser = require('body-parser')
 
@@ -14,15 +13,11 @@ app.use(bodyParser.json())
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-auth'); // Request headers you wish to allow
-    // res.setHeader('Access-Control-Expose-Headers', 'x-auth');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'content-type,x-auth'); // Request headers you wish to allow
 
     //intercepts OPTIONS method
     if ('OPTIONS' === req.method) {
-      res.send(200); //respond with 200
+      res.sendStatus(200); //respond with 200
     } else {
       next(); // Pass to next layer of middleware
     }
