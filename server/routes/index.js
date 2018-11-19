@@ -5,8 +5,8 @@ const { authentication } = require('./../middleware/authenticate')
 const express = require('express')
 const app = express()
 
-app.use(user)
+app.use('/users', user)
 
 
 app.use(authentication); // the authentication
-app.use(todo)
+app.use('/todos', todo)
